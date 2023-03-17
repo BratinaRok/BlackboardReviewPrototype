@@ -1,5 +1,6 @@
 package org.hyperskill.blackboard.model
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,13 +11,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.hyperskill.blackboard.BlackboardApplication
 import org.json.JSONObject
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(context: Context) : ViewModel() {
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult>
         get() = _loginResult
     private lateinit var credential: String
+    private val client = (context.applicationContext as BlackboardApplication).blackboardClient
 
     fun login(username: String, password: String) {
         val jsonPayload = createLoginPayload(username, password)
@@ -27,7 +30,7 @@ class LoginViewModel : ViewModel() {
                 val requestBody =
                     RequestBody.create("application/json".toMediaTypeOrNull(), jsonPayload)
 
-                val client = OkHttpClient.Builder().authenticator(object : Authenticator {
+                client.newBuilder().authenticator(object : Authenticator {
                     @Throws(IOException::class)
                     override fun authenticate(route: Route?, response: Response): Request? {
                         if (response.request.header("Authorization") != null) {

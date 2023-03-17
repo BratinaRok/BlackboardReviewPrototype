@@ -25,7 +25,7 @@ class TeacherMenuFragment : Fragment() {
     ): View? {
         fragmentTeacherMenuBinding =
             FragmentTeacherMenuBinding.inflate(layoutInflater, container, false)
-        viewModel = StudentsListViewModel()
+        viewModel = StudentsListViewModel(this.requireContext())
         studentsButton = fragmentTeacherMenuBinding.teacherMenuStudentsButton
 
         studentsButton.setOnClickListener {

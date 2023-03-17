@@ -2,9 +2,6 @@ package org.hyperskill.blackboard
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.ktor.utils.io.errors.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.hyperskill.blackboard.databinding.ActivityMainBinding
 
 

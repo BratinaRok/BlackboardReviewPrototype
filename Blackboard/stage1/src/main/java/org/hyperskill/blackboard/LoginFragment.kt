@@ -5,13 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.navigation.NavigationBarView
-import kotlinx.coroutines.newSingleThreadContext
 import org.hyperskill.blackboard.data.AuthToken
 import org.hyperskill.blackboard.databinding.FragmentLoginBinding
 import org.hyperskill.blackboard.model.LoginViewModel
@@ -28,7 +24,7 @@ class LoginFragment : Fragment() {
     ): View? {
         fragmentLoginBinding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         logInButton = fragmentLoginBinding.loginButton
-        viewModel = LoginViewModel()
+        viewModel = LoginViewModel(this.requireContext())
 
         logInButton.setOnClickListener {
             val username = fragmentLoginBinding.loginUsername.text.toString()

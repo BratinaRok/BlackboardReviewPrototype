@@ -1,19 +1,20 @@
 package org.hyperskill.blackboard.model
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.hyperskill.blackboard.BlackboardApplication
 import org.hyperskill.blackboard.data.AuthToken
 
-class StudentsListViewModel : ViewModel() {
+class StudentsListViewModel(context: Context) : ViewModel() {
 
-    val client = OkHttpClient()
-    var responseData: String? = null
-     val authToken: String? = AuthToken.Token.getCurrentToken()
+    private val client = (context.applicationContext as BlackboardApplication).blackboardClient
+    private var responseData: String? = null
+    private val authToken: String? = AuthToken.Token.getCurrentToken()
 
 
     fun getList(): String? {
