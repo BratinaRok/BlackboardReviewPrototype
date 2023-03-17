@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Blackboard</string>
+    <string name="password">password</string>
+    <string name="log_in">log in</string>
+    <string name="username">username</string>
+    <string name="teacher">Teacher</string>
+    <string name="student">Student</string>
+    <string name="change_grade">Change Grade</string>
+    <string name="add_grade">Add Grade</string>
+    <string name="students">Students</string>
 </resources>

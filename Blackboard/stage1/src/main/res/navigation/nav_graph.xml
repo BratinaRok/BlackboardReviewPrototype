@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="org.hyperskill.blackboard.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_teacherMenu"
+            app:destination="@id/teacherMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherMenu"
+        android:name="org.hyperskill.blackboard.TeacherMenuFragment"
+        android:label="TeacherMenu" >
+        <action
+            android:id="@+id/action_teacherMenu_to_studentsListFragment"
+            app:destination="@id/studentsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentsListFragment"
+        android:name="org.hyperskill.blackboard.StudentsListFragment"
+        android:label="StudentsListFragment" />
+
+</navigation>
