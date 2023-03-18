@@ -8,8 +8,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.hyperskill.blackboard.data.AuthToken
 import org.hyperskill.blackboard.databinding.FragmentLoginBinding
@@ -27,7 +25,6 @@ class LoginFragment : Fragment() {
     ): View? {
         fragmentLoginBinding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         logInButton = fragmentLoginBinding.loginButton
-//        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         logInButton.setOnClickListener {
             val username = fragmentLoginBinding.loginUsername.text.toString()

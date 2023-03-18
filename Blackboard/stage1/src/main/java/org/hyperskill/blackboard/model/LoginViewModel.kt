@@ -1,10 +1,8 @@
 package org.hyperskill.blackboard.model
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.*
 import io.ktor.utils.io.errors.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
