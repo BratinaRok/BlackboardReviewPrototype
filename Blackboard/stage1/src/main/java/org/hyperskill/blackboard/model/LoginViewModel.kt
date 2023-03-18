@@ -1,9 +1,8 @@
 package org.hyperskill.blackboard.model
 
+import android.app.Application
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,17 +13,18 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.hyperskill.blackboard.BlackboardApplication
 import org.json.JSONObject
 
-class LoginViewModel(context: Context) : ViewModel() {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
+
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult>
         get() = _loginResult
     private lateinit var credential: String
-    private val client = (context.applicationContext as BlackboardApplication).blackboardClient
+    private val client =
+        (application as BlackboardApplication).blackboardClient
 
     fun login(username: String, password: String) {
-        val jsonPayload = createLoginPayload(username, password)
-
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            val jsonPayload = createLoginPayload(username, password)
             try {
                 credential = Credentials.basic(username, password)
                 val requestBody =
@@ -53,7 +53,8 @@ class LoginViewModel(context: Context) : ViewModel() {
                     val role = json?.getString("role")
                     val token = json?.getString("token")
                     withContext(Dispatchers.Main) {
-                        _loginResult.value = LoginResult(isAuthenticationSuccessful, role, token)
+                        _loginResult.value =
+                            LoginResult(isAuthenticationSuccessful, role, token)
                     }
                 } else {
                     withContext(Dispatchers.Main) {

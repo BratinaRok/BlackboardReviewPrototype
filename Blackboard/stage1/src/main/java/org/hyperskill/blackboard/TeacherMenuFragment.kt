@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -17,7 +18,7 @@ class TeacherMenuFragment : Fragment() {
 
     lateinit var fragmentTeacherMenuBinding: FragmentTeacherMenuBinding
     lateinit var studentsButton: Button
-    private lateinit var viewModel: StudentsListViewModel
+    private val viewModel: StudentsListViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +26,6 @@ class TeacherMenuFragment : Fragment() {
     ): View? {
         fragmentTeacherMenuBinding =
             FragmentTeacherMenuBinding.inflate(layoutInflater, container, false)
-        viewModel = StudentsListViewModel(this.requireContext())
         studentsButton = fragmentTeacherMenuBinding.teacherMenuStudentsButton
 
         studentsButton.setOnClickListener {
@@ -35,7 +35,7 @@ class TeacherMenuFragment : Fragment() {
     }
 
     private fun getAllStudentsList() {
-        var jsonStr = viewModel.getList()
+        val jsonStr = viewModel.getList()
         if (jsonStr != null) {
             val student = Json.decodeFromString<List<Student>>(jsonStr)
 
