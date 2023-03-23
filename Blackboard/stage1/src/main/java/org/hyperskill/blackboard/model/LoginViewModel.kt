@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.hyperskill.blackboard.BaseClient
 import org.hyperskill.blackboard.BlackboardApplication
 import org.json.JSONObject
 
@@ -39,8 +40,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 }).build()
 
-                val request = Request.Builder().url("http://10.0.2.2:8080/login")
+                val request = Request.Builder().url(BaseClient.baseurl + "login")
                     .header("Authorization", credential).post(requestBody).build()
+
 
                 val response = client.newCall(request).execute()
                 val isAuthenticationSuccessful = response.isSuccessful
@@ -68,7 +70,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private fun createLoginPayload(username: String, password: String): String {
         val json = JSONObject()
         json.put("username", username)
-        json.put("password", password)
+        json.put("pass", password)
         return json.toString()
     }
 

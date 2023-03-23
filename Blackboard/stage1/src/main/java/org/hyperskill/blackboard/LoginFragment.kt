@@ -24,11 +24,11 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         fragmentLoginBinding = FragmentLoginBinding.inflate(layoutInflater, container, false)
-        logInButton = fragmentLoginBinding.loginButton
+        logInButton = fragmentLoginBinding.loginBtn
 
         logInButton.setOnClickListener {
-            val username = fragmentLoginBinding.loginUsername.text.toString()
-            val password = fragmentLoginBinding.loginPassword.text.toString()
+            val username = fragmentLoginBinding.loginUsernameEt.text.toString()
+            val password = fragmentLoginBinding.loginPassEt.text.toString()
             viewModel.login(username, password)
 
             viewModel.loginResult.observe(viewLifecycleOwner) { response ->
