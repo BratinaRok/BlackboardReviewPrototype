@@ -11,6 +11,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.hyperskill.blackboard.BaseClient
 import org.hyperskill.blackboard.BlackboardApplication
 import org.json.JSONObject
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+import java.util.*
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -43,7 +46,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 val request = Request.Builder().url(BaseClient.baseurl + "login")
                     .header("Authorization", credential).post(requestBody).build()
 
-
                 val response = client.newCall(request).execute()
                 val isAuthenticationSuccessful = response.isSuccessful
 
@@ -54,28 +56,41 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     val token = json?.getString("token")
                     withContext(Dispatchers.Main) {
                         _loginResult.value =
-                            LoginResult(isAuthenticationSuccessful, role, token)
+                            LoginResult.Success(username, token, role)
+
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        _loginResult.value = LoginResult(false, null, null)
+                        _loginResult.value = LoginResult.Success(null, null, null)
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+
+
     }
 
     private fun createLoginPayload(username: String, password: String): String {
         val json = JSONObject()
         json.put("username", username)
-        json.put("pass", password)
+        val rawPassBytes = password.toByteArray(StandardCharsets.UTF_8)
+        val messageDigest = MessageDigest.getInstance("SHA-256")
+        val sha256HashPass = messageDigest.digest(rawPassBytes)
+        val base64sha256HashPass = Base64.getEncoder().encodeToString(sha256HashPass)
+        json.put("pass", base64sha256HashPass)
         return json.toString()
     }
 
 }
 
-data class LoginResult(val success: Boolean, val role: String?, val token: String?) {
-
+sealed class LoginResult {
+    data class Success(val username: String?, val token: String?, val role: String?) : LoginResult() {
+        val success: Boolean
+           get() = true
+    }
+    object Failure : LoginResult()
 }
+
+

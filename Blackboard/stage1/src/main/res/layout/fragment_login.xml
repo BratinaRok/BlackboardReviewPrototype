@@ -43,5 +43,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginPassEt" />
 
+    <TextView
+        android:id="@+id/helloTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="127dp"
+        android:layout_marginBottom="68dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/loginUsernameEt"
+        app:layout_constraintStart_toStartOf="@+id/loginUsernameEt" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
