@@ -39,7 +39,6 @@ class LoginFragment : Fragment() {
                 when (response) {
                     is LoginResult.Success -> {
                         helloTv.text = response.toString()
-
                         if (response.token != null) {
                             token = AuthToken.Token(response.token)
                             AuthToken.Token.setCurrentToken(token)
@@ -49,7 +48,6 @@ class LoginFragment : Fragment() {
                         } else if (response.role.equals("STUDENT")) {
                             findNavController().navigate(R.id.action_loginFragment_to_studentMenuFragment)
                         }
-
                     }
                     is LoginResult.Failure -> {
                         Toast.makeText(context, "Wrong credentials", Toast.LENGTH_SHORT)

@@ -12,6 +12,7 @@ import okhttp3.Request
 import org.hyperskill.blackboard.BlackboardApplication
 import org.hyperskill.blackboard.data.AuthToken
 import org.hyperskill.blackboard.data.Student
+import org.hyperskill.blackboard.network.BaseClient
 import org.hyperskill.blackboard.ui.teacher.studentlistdata.StudentsCallback
 
 class StudentsListViewModel(application: Application) : AndroidViewModel(application) {
@@ -22,13 +23,12 @@ class StudentsListViewModel(application: Application) : AndroidViewModel(applica
     private val _students = MutableLiveData<List<Student>>()
     val students: LiveData<List<Student>> = _students
     private var callback: StudentsCallback? = null
-
     fun getList(callback: StudentsCallback): String? {
         this.callback = callback
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val request = Request.Builder()
-                    .url("http://10.0.2.2:8080/students")
+                    .url(BaseClient.baseurl + "/teacher/student")
                     .apply {
                         if (authToken != null) {
                             header("Authorization", "Bearer $authToken")
