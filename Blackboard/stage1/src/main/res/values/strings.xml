@@ -8,4 +8,7 @@
     <string name="change_grade">Change Grade</string>
     <string name="add_grade">Add Grade</string>
     <string name="students">Students</string>
+    <string name="view_grades">view grades</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

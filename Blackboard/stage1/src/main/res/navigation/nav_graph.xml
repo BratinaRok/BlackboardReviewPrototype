@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="org.hyperskill.blackboard.LoginFragment"
+        android:name="org.hyperskill.blackboard.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_teacherMenu"
+            android:id="@+id/action_loginFragment_to_teacherMenuFragment"
             app:destination="@id/teacherMenu" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentMenuFragment"
+            app:destination="@id/studentMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherMenu"
-        android:name="org.hyperskill.blackboard.TeacherMenuFragment"
+        android:name="org.hyperskill.blackboard.ui.teacher.TeacherMenuFragment"
         android:label="TeacherMenu" >
         <action
             android:id="@+id/action_teacherMenu_to_studentsListFragment"
@@ -24,7 +27,20 @@
     </fragment>
     <fragment
         android:id="@+id/studentsListFragment"
-        android:name="org.hyperskill.blackboard.StudentsListFragment"
+        android:name="org.hyperskill.blackboard.ui.teacher.StudentsListFragment"
         android:label="StudentsListFragment" />
+    <fragment
+        android:id="@+id/studentMenuFragment"
+        android:name="org.hyperskill.blackboard.ui.student.StudentMenuFragment"
+        android:label="StudentMenuFragment" >
+        <action
+            android:id="@+id/action_studentMenuFragment_to_viewGradesFragment"
+            app:destination="@id/viewGradesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewGradesFragment"
+        android:name="org.hyperskill.blackboard.ui.student.ViewGradesFragment"
+        android:label="fragment_view_grades"
+        tools:layout="@layout/fragment_view_grades" />
 
 </navigation>

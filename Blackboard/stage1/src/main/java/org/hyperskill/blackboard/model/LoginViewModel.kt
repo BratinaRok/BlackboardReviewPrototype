@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import org.hyperskill.blackboard.BaseClient
+import org.hyperskill.blackboard.network.BaseClient
 import org.hyperskill.blackboard.BlackboardApplication
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
@@ -61,7 +61,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        _loginResult.value = LoginResult.Success(null, null, null)
+                        _loginResult.value = LoginResult.Failure
                     }
                 }
             } catch (e: Exception) {
@@ -88,7 +88,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 sealed class LoginResult {
     data class Success(val username: String?, val token: String?, val role: String?) : LoginResult() {
         val success: Boolean
-           get() = true
+           get() =  username != null && token != null && role != null
     }
     object Failure : LoginResult()
 }

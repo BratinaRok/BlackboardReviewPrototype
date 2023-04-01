@@ -1,4 +1,4 @@
-package org.hyperskill.blackboard
+package org.hyperskill.blackboard.network
 
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient

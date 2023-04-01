@@ -2,6 +2,7 @@ package org.hyperskill.blackboard
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import org.hyperskill.blackboard.network.BaseClient
 import org.hyperskill.blackboard.databinding.ActivityMainBinding
 
 

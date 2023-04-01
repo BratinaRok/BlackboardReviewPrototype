@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp"
-    tools:context=".TeacherMenuFragment">
+    tools:context=".ui.teacher.TeacherMenuFragment">
 
     <Button
         android:id="@+id/teacherMenuStudentsButton"
