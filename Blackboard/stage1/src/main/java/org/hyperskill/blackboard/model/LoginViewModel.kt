@@ -8,12 +8,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.internal.wait
 import org.hyperskill.blackboard.network.BaseClient
 import org.hyperskill.blackboard.BlackboardApplication
+import org.hyperskill.blackboard.data.User
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -41,10 +44,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         return response.request.newBuilder()
                             .header("Authorization", credential).build()
                     }
-                }).build()
+                })
+                    .build()
+
 
                 val request = Request.Builder().url(BaseClient.baseurl + "login")
                     .header("Authorization", credential).post(requestBody).build()
+
 
                 val response = client.newCall(request).execute()
                 val isAuthenticationSuccessful = response.isSuccessful
@@ -57,7 +63,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     withContext(Dispatchers.Main) {
                         _loginResult.value =
                             LoginResult.Success(username, token, role)
-
+                        User.username = username
                     }
                 } else {
                     withContext(Dispatchers.Main) {
