@@ -50,8 +50,7 @@ class LoginFragment : Fragment() {
                         }
                     }
                     is LoginResult.Failure -> {
-                        Toast.makeText(context, "Wrong credentials", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(context, response.errorMsg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
