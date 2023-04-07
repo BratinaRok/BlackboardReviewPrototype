@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +25,7 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var token: AuthToken
     lateinit var helloTv: TextView
+    private lateinit var loader: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -30,12 +33,15 @@ class LoginFragment : Fragment() {
         fragmentLoginBinding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         logInButton = fragmentLoginBinding.loginBtn
         helloTv = fragmentLoginBinding.helloTv
+        loader = fragmentLoginBinding.loaderLoginFragment
         logInButton.setOnClickListener {
+            loader.visibility = View.VISIBLE
             val username = fragmentLoginBinding.loginUsernameEt.text.toString()
             val password = fragmentLoginBinding.loginPassEt.text.toString()
             viewModel.login(username, password)
 
             viewModel.loginResult.observe(viewLifecycleOwner) { response ->
+                loader.visibility = View.INVISIBLE
                 when (response) {
                     is LoginResult.Success -> {
                         helloTv.text = response.toString()
