@@ -1,4 +1,4 @@
-package org.hyperskill.blackboard.network.student;
+package org.hyperskill.blackboard.network.student.get;
 
 import io.ktor.utils.io.errors.*
 import kotlinx.serialization.decodeFromString
@@ -12,10 +12,9 @@ import org.hyperskill.blackboard.network.BaseClient;
 
 import kotlin.Result;
 import okhttp3.Request;
-import okhttp3.Response
 import org.hyperskill.blackboard.data.Grades
 
-class GetStudentGrades(val client: OkHttpClient) {
+class StudentGrades(val client: OkHttpClient) {
     private val authToken: String? = AuthToken.Token.getCurrentToken()
     private lateinit var grades: Any
     fun getGrades(username: String): Result<Any> {

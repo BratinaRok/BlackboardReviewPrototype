@@ -5,13 +5,11 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Callback
-import okhttp3.Dispatcher
-import okhttp3.OkHttpClient
+
 import org.hyperskill.blackboard.BlackboardApplication
 import org.hyperskill.blackboard.data.Grades
-import org.hyperskill.blackboard.network.student.GetStudentGrades
-import org.hyperskill.blackboard.ui.student.ViewGradesFragment
+import org.hyperskill.blackboard.network.student.get.StudentGrades
+
 
 class ViewGradesViewModel(application: Application) : AndroidViewModel(application) {
     private val client = (application as BlackboardApplication).blackboardClient
@@ -21,7 +19,7 @@ class ViewGradesViewModel(application: Application) : AndroidViewModel(applicati
 
     fun getGrades(username: String, callback: (List<Grades>) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val getGrades = GetStudentGrades(client).getGrades(username)
+            val getGrades = StudentGrades(client).getGrades(username)
             if (getGrades.isSuccess) {
                 val grades = getGrades.getOrNull() as List<Grades>
                 withContext(Dispatchers.Main) {

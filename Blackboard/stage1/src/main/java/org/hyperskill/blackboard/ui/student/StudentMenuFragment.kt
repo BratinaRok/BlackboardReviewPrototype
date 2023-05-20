@@ -10,13 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.hyperskill.blackboard.R
 import org.hyperskill.blackboard.databinding.FragmentStudentMenuBinding
-import org.hyperskill.blackboard.model.StudentsListViewModel
+import org.hyperskill.blackboard.model.LogoutViewModel
 
 class StudentMenuFragment : Fragment() {
 
     lateinit var fragmentStudentMenuBinding: FragmentStudentMenuBinding
     lateinit var viewGradesBtn: Button
-    private val viewModel: StudentsListViewModel by viewModels()
+    lateinit var logOutBtn: Button
+    private val viewModel: LogoutViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,9 +26,13 @@ class StudentMenuFragment : Fragment() {
         fragmentStudentMenuBinding =
             FragmentStudentMenuBinding.inflate(layoutInflater, container, false)
         viewGradesBtn = fragmentStudentMenuBinding.studentMenuViewGradesBtn
+        logOutBtn = fragmentStudentMenuBinding.studentMenuFragmentLogOutBtn
 
         viewGradesBtn.setOnClickListener {
             findNavController().navigate(R.id.action_studentMenuFragment_to_viewGradesFragment)
+        }
+        logOutBtn.setOnClickListener {
+            viewModel.getLogout()
         }
         return fragmentStudentMenuBinding.root
     }

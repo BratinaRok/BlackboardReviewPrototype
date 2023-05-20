@@ -74,6 +74,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
+                    println(e.printStackTrace())
                     _loginResult.value = LoginResult.Failure("Server error")
                     e.printStackTrace()
                 }
@@ -98,13 +99,15 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 }
 
 sealed class LoginResult {
-    data class Success(val username: String?, val token: String?, val role: String?) : LoginResult() {
+    data class Success(val username: String?, val token: String?, val role: String?) :
+        LoginResult() {
         val success: Boolean
-           get() =  username != null && token != null && role != null
+            get() = username != null && token != null && role != null
     }
+
     data class Failure(val errorMsg: String) : LoginResult() {
-        val error : String
-        get() = errorMsg
+        val error: String
+            get() = errorMsg
     }
 }
 
